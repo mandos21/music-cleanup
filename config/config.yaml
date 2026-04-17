@@ -6,10 +6,33 @@ pluginpath:
 
 plugins:
   - chroma
+  - fish
+  - badfiles
+  - discogs
   - fetchart
+  - embedart
   - lastgenre
+  - mbsync
+  - duplicates
+  - chroma
+  - convert
   - scrub
   - audit
+  - replaygain
+  - info
+  - edit
+  - albumtypes
+
+albumtypes:
+  types:
+    - ep: 'EP'
+    - single: 'Single'
+    - soundtrack: 'OST'
+    - live: 'Live'
+    - compilation: 'Anthology'
+    - remix: 'Remix'
+  ignore_va: compilation
+  bracket: '[]'
 
 import:
   move: no
@@ -25,27 +48,31 @@ import:
   timid: yes
 
 paths:
-  default: $albumartist/$album%aunique{}/$track $title
+  default: $albumartist/[$year]$atypes $album%aunique{}/$track - $title
   singleton: Non-Album/$artist/$title
-  comp: Compilations/$album%aunique{}/$track $title
+  comp: Compilations/$album%aunique{ [$year]}/$track - $title
+
+discogs:
+  user_token: ewHIvXlRXcouGPGQzTPLexzmtatTPPFRIrShPHnm
 
 fetchart:
   auto: yes
   cautious: yes
+  maxwidth: 1200
   cover_names: cover folder front art album
+  sources:
+    - filesystem
+    - coverart
+    - itunes
+    - amazon
+
+embedart:
+  auto: yes
+  ifempty: yes
+  remove_art_file: no
 
 chroma:
   auto: yes
-
-scrub:
-  auto: yes
-
-lastgenre:
-  auto: yes
-  source: track
-  count: 3
-  fallback: unknown
-  whitelist: yes
 
 match:
   preferred:
@@ -53,3 +80,60 @@ match:
     media: [Digital Media, CD, 12" Vinyl, Vinyl]
 
 threaded: yes
+
+lastgenre:
+  auto: yes
+  source: album
+  count: 3
+  min_weight: 50
+  force: yes
+  keep_existing: yes
+  whitelist: no
+  ignorelist:
+    '*':
+      - '(?i)^seen live$'
+      - '(?i)^\\d{4}(?:\\s+(?:albums?|releases?))?$'
+      - '(?i)^\\d{2}(?:\\d{2})?s$'
+      - '(?i)^top .+ albums? of the decade.*$'
+      - '(?i)^(?:albums?|releases?)$'
+      - '(?i)^new (?:album|release)$'
+      - '(?i)^(?:favorite|favourite)(?: live)? albums?$'
+      - '(?i)^(?:favorite|favourite) (?:songs|tracks)$'
+      - '(?i)^favo(?:u)?rites?$'
+      - '(?i)^my favo(?:u)?rite(?:s)?$'
+      - '(?i)^under \\d+ listeners$'
+      - '(?i)^albums i own$'
+      - '(?i)^free download$'
+      - '(?i)^scrobbles to edit$'
+      - '(?i)^check out$'
+      - '(?i)^(?:owned|vinyl|youtube|test)$'
+      - '(?i)^(?:amazing|awesome|cool|catchy|hype|masterpiece|playful|raw|sexy|summer)$'
+      - '(?i)^beautiful (?:voice|vocals)$'
+      - '(?i)^(?:female|male) vocalists?$'
+      - '(?i)^(?:american|british|canadian|hungarian|irish|japanese)$'
+      - '(?i)^(?:another questionmark|dogs and cats|food and drink|parts of the body|randomvalue)$'
+
+
+
+convert:
+  auto: yes
+  auto_keep: no
+  delete_originals: yes
+  never_convert_lossy_files: yes
+  tmpdir: /uploads/tmp
+  format: flac
+  formats:
+    flac:
+      command: ffmpeg -i $source -y -vn -c:a flac $dest
+      extension: flac
+
+acoustid:
+  apikey: Zi3a4lgPD4
+
+replaygain:
+  backend: ffmpeg
+  overwrite: no
+
+replace:
+  '[\\/]': _
+  '^\\.': _
