@@ -1,0 +1,60 @@
+directory: ../mnt/library/managed
+library: ../state/beets/musiclibrary.db
+
+pluginpath:
+  - beetsplug
+
+plugins:
+  - chroma
+  - discogs
+  - fetchart
+  - lastgenre
+  - scrub
+  - audit
+
+import:
+  move: no
+  copy: no
+  write: yes
+  resume: ask
+  incremental: yes
+  incremental_skip_later: yes
+  quiet_fallback: skip
+  log: ../state/beets/import.log
+  from_scratch: no
+  duplicate_action: ask
+  timid: yes
+
+paths:
+  default: $albumartist/$album%aunique{}/$track $title
+  singleton: Non-Album/$artist/$title
+  comp: Compilations/$album%aunique{}/$track $title
+
+fetchart:
+  auto: yes
+  cautious: yes
+  cover_names: cover folder front art album
+
+chroma:
+  auto: yes
+
+scrub:
+  auto: yes
+
+lastgenre:
+  auto: yes
+  source: track
+  count: 3
+  fallback: unknown
+  whitelist: yes
+
+discogs:
+  data_source_mismatch_penalty: 0.0
+  index_tracks: yes
+
+match:
+  preferred:
+    countries: [US, GB, JP]
+    media: [Digital Media, CD, 12" Vinyl, Vinyl]
+
+threaded: yes

@@ -1,0 +1,4 @@
+# Add one case-insensitive bad genre value per line.
+# Example:
+# seen live
+# My Very Specific Tag
