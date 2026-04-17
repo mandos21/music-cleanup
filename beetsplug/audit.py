@@ -8,7 +8,7 @@ from beets.ui import Subcommand, decargs, print_
 
 class AuditPlugin(BeetsPlugin):
     def commands(self) -> list[Subcommand]:
-        cmd = Subcommand("auditfields", help="report missing metadata useful for cleanup")
+        cmd = Subcommand("audit", help="report missing metadata useful for cleanup")
         cmd.parser.add_option(
             "-a",
             "--albums",

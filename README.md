@@ -18,8 +18,6 @@ This repo exists outside the k3s GitOps workflow on purpose. The goal is to iter
 
 ## Layout
 
-- `src/music_cleanup/beetsplug/`
-  Python package code and helpers for this repo.
 - `beetsplug/`
   Repo-local beets plugin modules loaded via `pluginpath`.
 - `config/config.example.yaml`
@@ -72,7 +70,7 @@ sudo ./scripts/mount-nfs.sh
 
 ```bash
 ./scripts/beet.sh version
-./scripts/beet.sh help auditfields
+./scripts/beet.sh help audit
 ./.venv/bin/pytest
 ```
 
@@ -82,13 +80,13 @@ The config uses `pluginpath` to load modules from this repo:
 
 - `audit`
 
-The starter plugin adds an `auditfields` command that reports albums and items missing key metadata. It is meant to be a safe first plugin: read-only, no hidden mutations, and directly useful for cleanup triage.
+The starter plugin adds an `audit` command that reports albums and items missing key metadata. It is meant to be a safe first plugin: read-only, no hidden mutations, and directly useful for cleanup triage.
 
 ## Current Status
 
 - Local virtualenv and beets toolchain are installed.
 - Repo-local config, cache, and SQLite state are working.
-- The starter `auditfields` plugin is wired into beets and tested.
+- The starter `audit` plugin is wired into beets and tested.
 - NFS mounts are intentionally left for host-side setup.
 
 ## Notes
