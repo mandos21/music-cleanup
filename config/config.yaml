@@ -1,4 +1,4 @@
-directory: ../mnt/library/managed
+directory: ../mnt/library/
 library: ../state/beets/musiclibrary.db
 
 pluginpath:
@@ -7,17 +7,18 @@ pluginpath:
 plugins:
   - chroma
   - fish
+  - edit
   - badfiles
-  - discogs
   - fetchart
   - embedart
-  - lastgenre
   - mbsync
+  - musicbrainz
   - duplicates
   - chroma
   - convert
   - scrub
   - audit
+  - genre
   - replaygain
   - info
   - edit
@@ -34,8 +35,18 @@ albumtypes:
   ignore_va: compilation
   bracket: '[]'
 
+
+musicbrainz:
+  host: musicbrainz.org
+  https: no
+  genres: no
+  external_ids:
+    discogs: yes
+    spotify: yes
+    bandcamp: yes
+
 import:
-  move: no
+  move: yes
   copy: no
   write: yes
   resume: ask
@@ -45,7 +56,7 @@ import:
   log: ../state/beets/import.log
   from_scratch: no
   duplicate_action: ask
-  timid: yes
+  timid: no
 
 paths:
   default: $albumartist/[$year]$atypes $album%aunique{}/$track - $title
@@ -78,8 +89,6 @@ match:
   preferred:
     countries: [US, GB, JP]
     media: [Digital Media, CD, 12" Vinyl, Vinyl]
-
-threaded: yes
 
 lastgenre:
   auto: yes
@@ -120,7 +129,7 @@ convert:
   auto_keep: no
   delete_originals: yes
   never_convert_lossy_files: yes
-  tmpdir: /uploads/tmp
+  tmpdir: /home/mandos/dev/music-cleanup/mnt/uploads/tmp
   format: flac
   formats:
     flac:

@@ -1,0 +1,41 @@
+directory: ../mnt/recovery-sorted
+library: ../state/recovery/recovery.db
+
+pluginpath:
+  - beetsplug
+
+plugins:
+  - chroma
+  - fetchart
+  - scrub
+  - audit
+  - genre
+  - info
+
+import:
+  move: no
+  copy: no
+  write: no
+  resume: ask
+  incremental: no
+  quiet_fallback: skip
+  timid: yes
+  singleton: yes
+  from_scratch: no
+  duplicate_action: keep
+
+match:
+  preferred:
+    countries: [US, GB, JP]
+    media: [Digital Media, CD, 12" Vinyl, Vinyl]
+
+chroma:
+  auto: no
+
+fetchart:
+  auto: no
+
+scrub:
+  auto: no
+
+threaded: yes

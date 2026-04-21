@@ -1,0 +1,40 @@
+directory: /mnt/ntfs/music_recovery2
+library: ../state/recovery/recovery.db
+
+pluginpath:
+  - beetsplug
+
+plugins:
+  - chroma
+  - fetchart
+  - scrub
+  - audit
+  - genre
+  - info
+
+import:
+  move: yes
+  copy: no
+  write: yes
+  resume: ask
+  incremental: no
+  quiet_fallback: skip
+  timid: yes
+  from_scratch: yes
+  duplicate_action: keep
+
+match:
+  preferred:
+    countries: [US, GB, JP]
+    media: [Digital Media, CD, 12" Vinyl, Vinyl]
+
+chroma:
+  auto: no
+
+fetchart:
+  auto: no
+
+scrub:
+  auto: no
+
+threaded: yes

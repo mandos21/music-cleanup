@@ -11,6 +11,7 @@ plugins:
   - lastgenre
   - scrub
   - audit
+  - genre
 
 import:
   move: no
