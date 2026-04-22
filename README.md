@@ -26,6 +26,8 @@ This repo exists outside the k3s GitOps workflow on purpose. The goal is to iter
   Creates a local virtualenv and installs beets plus plugin dependencies.
 - `scripts/beet.sh`
   Runs `beet` with repo-local config and cache directories pinned into this repo and loads `.env` if present.
+- `scripts/beet-backup.sh`
+  Runs `beet` against the latest backup library database in `~/dev`, or a specific one via `BEETS_BACKUP_DB`.
 - `scripts/mount-nfs.sh`
   Mounts the current library and uploads NFS shares into this repo.
 - `scripts/cleanup_bad_genres.py`
@@ -70,9 +72,22 @@ sudo ./scripts/mount-nfs.sh
 
 ```bash
 ./scripts/beet.sh version
+./scripts/beet-backup.sh stats
 ./scripts/beet.sh help audit
 ./.venv/bin/pytest
 ```
+
+## Historical Backup DB
+
+Use the backup wrapper when you want to query the pre-loss library state without pointing commands at the current live DB:
+
+```bash
+./scripts/beet-backup.sh ls artist:"Anathema"
+./scripts/beet-backup.sh stats
+BEETS_BACKUP_DB=/home/mandos/dev/musiclibrary.db.backup-20260419-113252 ./scripts/beet-backup.sh ls
+```
+
+The wrapper auto-detects the newest `~/dev/musiclibrary.db.backup-*` file if `BEETS_BACKUP_DB` is not set.
 
 ## Plugin Development
 

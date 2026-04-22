@@ -1,0 +1,121 @@
+directory: ../mnt/library/
+library: /home/mandos/dev/musiclibrary.db.backup-20260419-113252
+
+pluginpath:
+  - beetsplug
+
+plugins:
+  - chroma
+  - fish
+  - edit
+  - badfiles
+  - fetchart
+  - embedart
+  - mbsync
+  - musicbrainz
+  - duplicates
+  - chroma
+  - convert
+  - scrub
+  - audit
+  - genre
+  - replaygain
+  - info
+  - edit
+  - albumtypes
+
+albumtypes:
+  types:
+    - ep: 'EP'
+    - single: 'Single'
+    - soundtrack: 'OST'
+    - live: 'Live'
+    - compilation: 'Anthology'
+    - remix: 'Remix'
+  ignore_va: compilation
+  bracket: '[]'
+
+musicbrainz:
+  host: musicbrainz.org
+  https: no
+  genres: no
+  external_ids:
+    discogs: yes
+    spotify: yes
+    bandcamp: yes
+
+import:
+  move: no
+  copy: no
+  write: no
+  resume: ask
+  incremental: no
+  quiet_fallback: skip
+  log: ../state/beets/backup-import.log
+  from_scratch: no
+  duplicate_action: ask
+  timid: yes
+
+paths:
+  default: $albumartist/[$year]$atypes $album%aunique{}/$track - $title
+  singleton: Non-Album/$artist/$title
+  comp: Compilations/$album%aunique{ [$year]}/$track - $title
+
+discogs:
+  user_token: ewHIvXlRXcouGPGQzTPLexzmtatTPPFRIrShPHnm
+
+fetchart:
+  auto: no
+  cautious: yes
+  maxwidth: 1200
+  cover_names: cover folder front art album
+  sources:
+    - filesystem
+    - coverart
+    - itunes
+    - amazon
+
+embedart:
+  auto: no
+  ifempty: yes
+  remove_art_file: no
+
+chroma:
+  auto: no
+
+match:
+  preferred:
+    countries: [US, GB, JP]
+    media: [Digital Media, CD, 12" Vinyl, Vinyl]
+
+lastgenre:
+  auto: no
+  source: album
+  count: 3
+  min_weight: 50
+  force: no
+  keep_existing: yes
+  whitelist: no
+
+convert:
+  auto: no
+  auto_keep: no
+  delete_originals: no
+  never_convert_lossy_files: yes
+  tmpdir: /home/mandos/dev/music-cleanup/mnt/uploads/tmp
+  format: flac
+  formats:
+    flac:
+      command: ffmpeg -i $source -y -vn -c:a flac $dest
+      extension: flac
+
+acoustid:
+  apikey: Zi3a4lgPD4
+
+replaygain:
+  backend: ffmpeg
+  overwrite: no
+
+replace:
+  '[\\/]': _
+  '^\\.': _
