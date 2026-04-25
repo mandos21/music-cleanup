@@ -1,4 +1,10 @@
-# Add one case-insensitive bad genre value per line.
-# Example:
-# seen live
-# My Very Specific Tag
+# Explicit fallback removals that are not already covered by generic rules.
+# Generic rules in cleanup_bad_genres.py already remove:
+# - anything containing digits
+# - artist/album self-tags
+# - nationalities
+# - AOTY / "album of the year" variants
+# - "best of" phrases
+# - common adjective junk tags
+#
+# Add one case-insensitive explicit fallback value per line.

@@ -69,7 +69,7 @@ discogs:
 fetchart:
   auto: yes
   cautious: yes
-  maxwidth: 1200
+  maxwidth: 0
   cover_names: cover folder front art album
   sources:
     - filesystem
